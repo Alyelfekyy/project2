@@ -1,5 +1,4 @@
 import Client from '../database'
-import { Product } from '../models/product'
 
 interface ProductofOrder {
     order_id: number
@@ -82,11 +81,12 @@ export class OrderStore {
             const createdOrder: Order = rows.rows[0]
 
             const orderProductsSql =
-                'INSERT INTO product_of_order ( product_id, quantity) VALUES($1, $2) RETURNING *'
+                'INSERT INTO product_of_order ( order_id, product_id, quantity) VALUES($1, $2, $3) RETURNING *'
             const orderProducts = []
 
             for (const product of order.products) {
                 const rows = await connection.query(orderProductsSql, [
+                    order.order_id,
                     product.product_id,
                     product.quantity,
                 ])
