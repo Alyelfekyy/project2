@@ -3,16 +3,16 @@
         "driver": "pg",
         "host": "127.0.0.1",
         "port": 5432,
-        "database": "storefront",
-        "user": "postgres",
-        "password": "1322"
+        "database": "dev",
+        "user": { "ENV": "POSTGRES_USER" },
+        "password": { "ENV": "POSTGRES_PASSWORD" }
     },
     "test": {
         "driver": "pg",
         "host": "127.0.0.1",
         "port": 5433,
-        "database": "storefront",
-        "user": "postgres",
-        "password": "1322"
+        "database": "test",
+        "user": { "ENV": "POSTGRES_USER" },
+        "password": { "ENV": "POSTGRES_PASSWORD" }
     }
 }

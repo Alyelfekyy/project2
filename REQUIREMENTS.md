@@ -11,7 +11,6 @@ These are the notes from a meeting with the frontend developer that describe wha
 -   Index (GET `/api/products` )
 -   Show (GET `/api/products/:id`)
 -   Create [token required] (POST `/api/products/create`)
--   Update [token required] (PUT `/api/products/:id`)
 -   Delete [token required] (DELETE `/api/products/:id`)
 
 #### Users
@@ -19,17 +18,14 @@ These are the notes from a meeting with the frontend developer that describe wha
 -   Index [token required] (GET `/api/users`)
 -   Show [token required] (GET `/api/users/:id`)
 -   Create (POST `/api/users`)
--   Update [token required] (PUT `/api/users/:id`)
 -   Delete [token required] (DELETE `/api/users/:id`)
 
 #### Order
 
 -   Index [token required] (GET `/api/orders`)
 -   Show [token required] (GET `/api/orders/:id`)
--   Create (POST `/api/orders`)
--   Update [token required] (PUT `/api/orders/:id`)
+-   Create [token required] (POST `/api/orders`)
 -   Delete [token required] (DELETE `/api/orders/:id`)
--   Current Order by user (args: user id)[token required] (GET `/api/orders/current-orders`)
 
 ## Data Shapes
 
@@ -47,7 +43,7 @@ The table includes the following fields:
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name varchar(100) NOT NULL,
-    price numeric DEFAULT 0.00,
+    price numeric ,
     category varchar(50)
 )
 ```
@@ -67,8 +63,8 @@ The table includes the following fields:
 CREATE TABLE "users" (
      id SERIAL PRIMARY KEY,
      username VARCHAR,
-     first_name VARCHAR(100),
-     last_name VARCHAR(100),
+     first_name VARCHAR(50),
+     last_name VARCHAR(50),
      password_digest VARCHAR
 )
 ```
