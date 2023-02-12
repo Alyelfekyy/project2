@@ -21,11 +21,7 @@ To install the app's dependencies and use the app in dev mode, run the following
 `npm install` to install all dependencies
 `npm run start` to start the app and get access via http://127.0.0.1:
 
-<<<<<<< HEAD
 ## Setup Database
-=======
-## Setup Database 
->>>>>>> 090282955106218d1074ca1d3743b3889f01ab1f
 
 # Create Database
 
@@ -60,10 +56,7 @@ SALT_ROUNDS=1222
 # JWT
 TOKEN_SECRET=topsecret
 ```
-<<<<<<< HEAD
 
-=======
->>>>>>> 090282955106218d1074ca1d3743b3889f01ab1f
 ## Test The App
 
 add a database.json file in the root directory and set the missing ### parameters
