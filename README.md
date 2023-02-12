@@ -60,6 +60,7 @@ TOKEN_SECRET=topsecret
 
 add a database.json file in the root directory and set the missing ### parameters
 
+```
 {
   "dev": {
     "driver": "pg",
@@ -78,5 +79,6 @@ add a database.json file in the root directory and set the missing ### parameter
     "password": "###"
   }
 }
+```
 
 `npm run` test to run all tests
