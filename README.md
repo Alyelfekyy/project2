@@ -19,8 +19,18 @@ The application uses the following libraries:
 To install the app's dependencies and use the app in dev mode, run the following:
 
 `npm install` to install all dependencies
-`db-migrate up` to set up the database and get access via http://127.0.0.1:5432
-`npm start` to run the app in dev mode
+`npm run start` to start the app and get access via http://127.0.0.1:
+
+## Setup Database 
+
+# Create Database
+
+connect to the default postgres database as the server's root user `psql -U postgres`
+
+# Migrate database
+
+Navigate to the root directory and run the command below to migrate the database
+`npm run db-up` and get access via http://127.0.0.1:5432
 
 ### Ports
 
@@ -46,3 +56,27 @@ SALT_ROUNDS=1222
 # JWT
 TOKEN_SECRET=topsecret
 ```
+## Test The App
+
+add a database.json file in the root directory and set the missing ### parameters
+
+{
+  "dev": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "database": "storefront",
+    "user": "###",
+    "password": "###"
+  },
+  "test": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "port": 5433,
+    "database": "storefront",
+    "user": "###",
+    "password": "###"
+  }
+}
+
+`npm run` test to run all tests
