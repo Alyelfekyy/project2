@@ -32,7 +32,7 @@ describe('Order Model', () => {
             price: 40,
             category: 'men',
         })
-        product1 = p2.product_id as number
+        product2 = p2.product_id as number
     })
 
     afterAll(async () => {
