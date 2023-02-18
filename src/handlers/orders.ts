@@ -10,8 +10,17 @@ const index = async (_req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-    const order = await store.show(req.body.id)
-    res.json(order)
+    try {
+        const id = req.params.id as unknown as number
+        if (!id) {
+            return res.status(400).send('Missing required parameter :id.')
+        }
+        const order = await store.show(id)
+        res.json(order)
+    } catch (e) {
+        res.status(400)
+        res.json(e)
+    }
 }
 
 const create = async (req: Request, res: Response) => {

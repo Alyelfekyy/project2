@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express'
+import verifyauthToken from '../middleware/authorization'
 import { Product, ProductStore } from '../models/product'
 
 const store = new ProductStore()
@@ -9,8 +10,17 @@ const index = async (_req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-    const product = await store.show(req.body.id)
-    res.json(product)
+    try {
+        const id = req.params.id as unknown as number
+        if (!id) {
+            return res.status(400).send('Missing required parameter :id.')
+        }
+        const product = await store.show(id)
+        res.json(product)
+    } catch (e) {
+        res.status(400)
+        res.json(e)
+    }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -39,8 +49,8 @@ const deletez = async (req: Request, res: Response) => {
 const productsRoutes = (app: express.Application) => {
     app.get('/articles', index)
     app.get('/articles/:id', show)
-    app.post('/articles', create)
-    app.delete('articles/:id', deletez)
+    app.post('/articles', verifyauthToken, create)
+    app.delete('articles/:id', verifyauthToken, deletez)
 }
 
 export default productsRoutes

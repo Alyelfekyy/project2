@@ -14,8 +14,17 @@ const index = async (_req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-    const user = await store.show(req.body.id)
-    res.json(user)
+    try {
+        const id = req.params.id as unknown as number
+        if (!id) {
+            return res.status(400).send('Missing required parameter :id.')
+        }
+        const user = await store.show(id)
+        res.json(user)
+    } catch (e) {
+        res.status(400)
+        res.json(e)
+    }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -53,9 +62,9 @@ const deletez = async (req: Request, res: Response) => {
 }
 
 const usersRoutes = (app: express.Application) => {
-    app.get('/users', index)
-    app.get('/users/:id', show)
-    app.post('/users', create)
+    app.get('/users', verifyauthToken, index)
+    app.get('/users/:id', verifyauthToken, show)
+    app.post('/users', verifyauthToken, create)
     app.delete('users/:id', verifyauthToken, deletez)
 }
 
