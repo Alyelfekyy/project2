@@ -12,9 +12,6 @@ const index = async (_req: Request, res: Response) => {
 const show = async (req: Request, res: Response) => {
     try {
         const id = req.params.id as unknown as number
-        if (!id) {
-            return res.status(400).send('Missing required parameter :id.')
-        }
         const product = await store.show(id)
         res.json(product)
     } catch (e) {
@@ -32,7 +29,7 @@ const create = async (req: Request, res: Response) => {
     }
     try {
         const newProduct = await store.create(product)
-        res.send(`Product with id ${req.body.id} successfully created.`)
+        res.send(`Product with id ${req.body.product_id} successfully created.`)
         res.json(newProduct)
     } catch (err) {
         res.status(400)
@@ -41,15 +38,19 @@ const create = async (req: Request, res: Response) => {
 }
 
 const deletez = async (req: Request, res: Response) => {
-    const deletedProduct = await store.delete(req.body.id)
-    res.send(`Product with id ${req.body.id} successfully deleted.`)
+    const id: number = parseInt(req.params.id)
+    if (!id) {
+        return res.status(400).send('Missing required parameter :id.')
+    }
+    const deletedProduct = await store.delete(id)
+    res.send(`Product with id ${id} successfully deleted.`)
     res.json(deletedProduct)
 }
 
 const productsRoutes = (app: express.Application) => {
-    app.get('/articles', index)
-    app.get('/articles/:id', show)
-    app.post('/articles', verifyauthToken, create)
+    app.get('/products', index)
+    app.get('/products/:id', show)
+    app.post('/products', verifyauthToken, create)
     app.delete('articles/:id', verifyauthToken, deletez)
 }
 

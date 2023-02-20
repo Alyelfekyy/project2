@@ -6,8 +6,8 @@ import dotenv from 'dotenv'
 export type User = {
     user_id?: number
     username: string
-    firstname: string
-    lastname: string
+    firstname?: string
+    lastname?: string
     password: string
     token?: string
 }
@@ -33,9 +33,14 @@ export class UserStore {
         }
     }
 
-    async show(id: number): Promise<User> {
+    async show(id: number): Promise<{
+        id: number
+        username: string
+        firstname: string
+        lastname: string
+    }> {
         try {
-            const sql = 'SELECT * FROM users WHERE id=($1)'
+            const sql = 'SELECT * FROM users WHERE user_id=($1)'
 
             const conn = await Client.connect()
 
@@ -43,31 +48,50 @@ export class UserStore {
 
             conn.release()
 
-            return result.rows[0]
+            return {
+                id: result.rows[0].id,
+                username: result.rows[0].username,
+                firstname: result.rows[0].firstname,
+                lastname: result.rows[0].lastname,
+            }
         } catch (err) {
             throw new Error(`Could not get user ${id}. Error: ${err}`)
         }
     }
 
-    async create(u: User): Promise<User> {
+    async create(u: User): Promise<{
+        id: number
+        username: string
+        firstname: string
+        lastname: string
+    }> {
         try {
             const sql =
-                'INSERT INTO users (username, firstname, lastname, password) VALUES($1, $2, $3, $4) RETURNING *'
+                'INSERT INTO users (username, first_name, last_name, password) VALUES($1, $2, $3, $4) RETURNING *'
             // @ts-ignore
+            const hash = bcrypt.hashSync(
+                u.password + pepper,
+                parseInt(saltRounds)
+            )
             const conn = await Client.connect()
 
             const result = await conn.query(sql, [
                 u.username,
                 u.firstname,
                 u.lastname,
-                u.password,
+                hash,
             ])
 
             const user = result.rows[0]
 
             conn.release()
 
-            return user
+            return {
+                id: user.id,
+                username: user.username,
+                firstname: user.firstname,
+                lastname: user.lastname,
+            }
         } catch (err) {
             throw new Error(`Could not add user ${u.firstname}. Error: ${err}`)
         }
@@ -75,7 +99,7 @@ export class UserStore {
 
     async delete(id: number): Promise<User> {
         try {
-            const sql = 'DELETE FROM users WHERE id=($1)'
+            const sql = 'DELETE FROM users WHERE user_id=($1)'
             // @ts-ignore
             const conn = await Client.connect()
 
