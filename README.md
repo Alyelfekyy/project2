@@ -41,7 +41,7 @@ The application runs on port `3000` with database on `5432`.
 To satisfy Udacity requirements, the following environment variable are needed.
 
 ```
-TEST_POSTGRES_DB=test
+TEST_POSTGRES_DB=storefront_test
 DEV_POSTGRES_DB=dev
 
 # DB VARIABLES
@@ -51,7 +51,7 @@ POSTGRES_PASSWORD=1322
 
 # BCRYPT VARIABLES
 BCRYPT_PASSWORD=bcryptpassword
-SALT_ROUNDS=1222
+SALT_ROUNDS=12
 
 # JWT
 TOKEN_SECRET=topsecret
@@ -66,7 +66,6 @@ add a database.json file in the root directory and set the missing ### parameter
   "dev": {
     "driver": "pg",
     "host": "127.0.0.1",
-    "port": 5432,
     "database": "storefront",
     "user": "###",
     "password": "###"
@@ -74,7 +73,6 @@ add a database.json file in the root directory and set the missing ### parameter
   "test": {
     "driver": "pg",
     "host": "127.0.0.1",
-    "port": 5433,
     "database": "storefront",
     "user": "###",
     "password": "###"
