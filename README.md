@@ -19,7 +19,9 @@ The application uses the following libraries:
 To install the app's dependencies and use the app in dev mode, run the following:
 
 `npm install` to install all dependencies
+`npm run build` to create the dist folder
 `npm run start` to start the app and get access via http://127.0.0.1:
+`npm run test` to run all tests
 
 ## Setup Database
 
