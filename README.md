@@ -80,4 +80,4 @@ add a database.json file in the root directory and set the missing ### parameter
 }
 ```
 
-`npm run` test to run all tests
+`npm run test` to run all tests
