@@ -1,5 +1,10 @@
 CREATE TABLE orders (
-  order_id  SERIAL PRIMARY KEY,
-  user_id  INTEGER REFERENCES users(user_id),
-  status    VARCHAR(10)
+      order_id SERIAL PRIMARY KEY,
+      user_id INT NOT NULL,
+      status varchar NOT NULL,
+      CONSTRAINT fk_orders_users
+        FOREIGN KEY (user_id)
+          REFERENCES users(user_id)
+          ON DELETE CASCADE
+          ON UPDATE CASCADE
 );

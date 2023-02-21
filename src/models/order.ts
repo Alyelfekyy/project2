@@ -56,9 +56,7 @@ export class OrderStore {
 
             connection.release()
 
-            return {
-                ...createdOrder,
-            }
+            return createdOrder
         } catch (err) {
             throw new Error(
                 `Could not add new order for user ${order.user_id}. ${err}`

@@ -24,11 +24,9 @@ const create = async (req: Request, res: Response) => {
     const order: Order = {
         user_id: req.body.user_id,
         status: req.body.status,
-        order_id: req.body.order_id,
     }
     try {
         const newOrder = await store.create(order)
-        res.send(`Order with id ${req.body.order_id} successfully created.`)
         res.json(newOrder)
     } catch (err) {
         res.status(400)
@@ -65,7 +63,7 @@ const deletez = async (req: Request, res: Response) => {
 
 const ordersRoutes = (app: express.Application) => {
     app.get('/orders', verifyauthToken, index)
-    app.get('/order/:id', verifyauthToken, show)
+    app.get('/orders/:id', verifyauthToken, show)
     app.post('/orders', verifyauthToken, create)
     app.post('/orders/:id/products', verifyauthToken, addProducts)
     app.delete('orders/:id', verifyauthToken, deletez)

@@ -61,7 +61,7 @@ The table includes the following fields:
 
 ```sql
 CREATE TABLE "users" (
-     id SERIAL PRIMARY KEY,
+     user_id SERIAL PRIMARY KEY,
      username VARCHAR,
      first_name VARCHAR(50),
      last_name VARCHAR(50),
@@ -73,19 +73,19 @@ CREATE TABLE "users" (
 
 The table includes the following fields:
 
--   id
+-   order_id
 -   user_id
 -   status of order (active or complete)
     The SQL schema for this table is as follows:
 
 ```sql
 CREATE TABLE orders (
-      id SERIAL PRIMARY KEY,
+      order_id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
       status varchar NOT NULL,
       CONSTRAINT fk_orders_users
         FOREIGN KEY (user_id)
-          REFERENCES users(id)
+          REFERENCES users(user_id)
           ON DELETE CASCADE
           ON UPDATE CASCADE
 );

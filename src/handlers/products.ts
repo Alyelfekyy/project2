@@ -22,14 +22,12 @@ const show = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
     const product: Product = {
-        product_id: req.body.product_id,
         name: req.body.name,
         price: req.body.price,
         category: req.body.category,
     }
     try {
         const newProduct = await store.create(product)
-        res.send(`Product with id ${req.body.product_id} successfully created.`)
         res.json(newProduct)
     } catch (err) {
         res.status(400)

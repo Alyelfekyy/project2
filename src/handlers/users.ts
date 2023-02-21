@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express'
 import { User, UserStore } from '../models/user'
-import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import verifyauthToken from '../middleware/authorization'
 
@@ -37,7 +36,7 @@ const create = async (req: Request, res: Response) => {
             process.env.TOKEN_SECRET as string
         )
 
-        res.json({ token })
+        res.json({ token: token })
     } catch (err) {
         res.status(400)
         res.json(err)
@@ -73,7 +72,7 @@ const deletez = async (req: Request, res: Response) => {
 const usersRoutes = (app: express.Application) => {
     app.get('/users', verifyauthToken, index)
     app.get('/users/:id', verifyauthToken, show)
-    app.post('/users', verifyauthToken, create)
+    app.post('/users', create)
     app.post('/authenticate', authenticate)
     app.delete('users/:id', verifyauthToken, deletez)
 }
